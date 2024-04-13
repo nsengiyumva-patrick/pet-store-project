@@ -44,7 +44,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                 <input type="text" class="form-control form" required name="unit" value="<?php echo isset($unit) ? $unit : '' ?>">
             </div>
             <div class="form-group">
-				<label for="quantity" class="control-label">Quantity</label>
+				<label for="quantity" class="control-label">Beginning Quanatity</label>
                 <input type="number" class="form-control form" required name="quantity" value="<?php echo isset($quantity) ? $quantity : '' ?>">
             </div>
             <div class="form-group">

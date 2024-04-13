@@ -87,7 +87,7 @@
         price = parseFloat(price)
         // console.log(qty,price)
         new_total = parseFloat(qty * price).toLocaleString('en-US')
-        
+        _this.closest('.cart-item').find('.cart-qty').val(qty)
         _this.closest('.cart-item').find('.total-amount').text(new_total)
         calc_total()
 

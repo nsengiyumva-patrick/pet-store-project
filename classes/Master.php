@@ -313,7 +313,6 @@ Class Master extends DBConnection {
 				$data .= " `{$k}`='{$v}' ";
 			}
 		}
-
 		$check = $this->conn->query("SELECT * FROM `cart` where `inventory_id` = '{$inventory_id}' and client_id = ".$this->settings->userdata('id'))->num_rows;
 		if($this->capture_err())
 			return $this->capture_err();
@@ -473,23 +472,18 @@ Class Master extends DBConnection {
 		}
 		return json_encode($resp);
 	}
-
 	function pay_order(){
 		extract($_POST);
 		$update = $this->conn->query("UPDATE `orders` set `paid` = '1' where id = '{$id}' ");
 		if($update){
 			$resp['status'] ='success';
 			$this->settings->set_flashdata("success"," Order payment status successfully updated.");
-			$resp['test_data'] = $_POST;
-			// Update the inventory
-			// $order_info = $this->conn->query("SELECT * from orders inner join order_list on orders.id");
 		}else{
 			$resp['status'] ='failed';
 			$resp['err'] =$this->conn->error;
 		}
 		return json_encode($resp);
 	}
-
 	function update_account(){
 		extract($_POST);
 		$data = "";

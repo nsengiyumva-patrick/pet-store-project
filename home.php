@@ -1,20 +1,12 @@
  <!-- Header-->
  <header class="bg-dark py-5" id="main-header">
-    <div class="container px-4 px-lg-5 my-5 mt-3">
+    <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder"><br></h1>
-            <p class="lead fw-normal text-white-50 mb-0"><br><br></p>
+            <h1 class="display-4 fw-bolder">Your Pets Deserve The Best</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Looking for your pet's needs? Shop Now!</p>
         </div>
     </div>
-</header><br>
-<div class="d-flex justify-content-center">
-   <div class="shop">
-     <h2 class="head2">Shop</h2>
-      <h1>latest collection</h1>
-    <p>Check out our latest collection of products. <br>We regularly update our inventory with new and exciting items to provide you with the best selection</p>
-   </div>
-</div>
-   
+</header>
 <!-- Section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">

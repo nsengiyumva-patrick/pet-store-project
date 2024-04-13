@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 <!-- <script src="https://www.paypalobjects.com/api/checkout.js"></script> -->
 <script src="https://checkout.flutterwave.com/v3.js"></script>
+=======
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+>>>>>>> bee86db (initial commit)
 <?php 
 $total = 0;
     $qry = $conn->query("SELECT c.*,p.product_name,i.size,i.price,p.id as pid from `cart` c inner join `inventory` i on i.id=c.inventory_id inner join products p on p.id = i.product_id where c.client_id = ".$_settings->userdata('id'));
@@ -32,10 +36,14 @@ $total = 0;
                             <div class="d-flex w-100 justify-content-between">
                                 <button class="btn btn-flat btn-dark">Cash on Delivery</button>
                                 <span id="paypal-button"></span>
+<<<<<<< HEAD
                             </div><br>
                             <form>
                               <button style="background-color: grey;color:white;" type="button" id="start-payment-button" onclick="makePayment()">Flutterwave</button>
                             </form>
+=======
+                            </div>
+>>>>>>> bee86db (initial commit)
                         </div>
                     </div>
                 </div>
@@ -43,7 +51,11 @@ $total = 0;
         </div>
     </div>
 </section>
+<<<<<<< HEAD
 <!-- <script>
+=======
+<script>
+>>>>>>> bee86db (initial commit)
 paypal.Button.render({
     env: 'sandbox', // change for production if app is live,
  

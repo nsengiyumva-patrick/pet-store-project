@@ -1,3 +1,3 @@
 <?php
 
-echo md5("pazzo123");
+echo md5("admin");

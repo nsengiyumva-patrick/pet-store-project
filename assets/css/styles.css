@@ -113,7 +113,6 @@ h1,
     webkit-font-smoothing: antialiased;
     font-family: "Fredoka One";
 }
-}
 
 @media (min-width: 1200px) {
     h1,
@@ -10890,4 +10889,3 @@ input.cart-qty[type=number] {
 .links{
     margin-right: 15px;
 }
-
