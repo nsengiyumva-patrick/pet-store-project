@@ -313,6 +313,7 @@ Class Master extends DBConnection {
 				$data .= " `{$k}`='{$v}' ";
 			}
 		}
+
 		$check = $this->conn->query("SELECT * FROM `cart` where `inventory_id` = '{$inventory_id}' and client_id = ".$this->settings->userdata('id'))->num_rows;
 		if($this->capture_err())
 			return $this->capture_err();
@@ -343,7 +344,6 @@ Class Master extends DBConnection {
 			}
 			return json_encode($resp);
 	}
-
 
 	function update_cart_qty(){
 		extract($_POST);
