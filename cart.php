@@ -80,11 +80,7 @@
         var new_total = 0;
         start_loader();
         if($type == 'minus'){
-<<<<<<< HEAD
             qty = qty > 0 ? (parseInt(qty) - 1):0;
-=======
-            qty = parseInt(qty) - 1;
->>>>>>> eb08648 (fixed inventory on cart system)
         }else{
             qty = parseInt(qty) + 1;
         }
