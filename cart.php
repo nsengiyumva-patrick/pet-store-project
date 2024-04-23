@@ -80,14 +80,18 @@
         var new_total = 0;
         start_loader();
         if($type == 'minus'){
+<<<<<<< HEAD
             qty = qty > 0 ? (parseInt(qty) - 1):0;
+=======
+            qty = parseInt(qty) - 1;
+>>>>>>> eb08648 (fixed inventory on cart system)
         }else{
             qty = parseInt(qty) + 1;
         }
         price = parseFloat(price)
         // console.log(qty,price)
         new_total = parseFloat(qty * price).toLocaleString('en-US')
-        _this.closest('.cart-item').find('.cart-qty').val(qty)
+        
         _this.closest('.cart-item').find('.total-amount').text(new_total)
         calc_total()
 
