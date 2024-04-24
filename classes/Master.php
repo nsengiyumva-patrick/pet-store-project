@@ -416,6 +416,8 @@ Class Master extends DBConnection {
 		}
 		return json_encode($resp);
 	}
+
+
 	function place_order(){
 		extract($_POST);
 		$client_id = $this->settings->userdata('id');
@@ -432,14 +434,36 @@ Class Master extends DBConnection {
 		if($save_order){
 			$order_id = $this->conn->insert_id;
 			$data = '';
+			$prod_id = 0; $size = ""; $quantity = 0; $inventory_id = null;
 			$cart = $this->conn->query("SELECT c.*,p.product_name,i.size,i.price,p.id as pid,i.unit from `cart` c inner join `inventory` i on i.id=c.inventory_id inner join products p on p.id = i.product_id where c.client_id ='{$client_id}' ");
 			while($row= $cart->fetch_assoc()):
 				if(!empty($data)) $data .= ", ";
 				$total = $row['price'] * $row['quantity'];
 				$data .= "('{$order_id}','{$row['pid']}','{$row['size']}','{$row['unit']}','{$row['quantity']}','{$row['price']}', $total)";
+				$prod_id = $row["pid"];
+				$size = $row["size"];
+				$quantity = $row["quantity"];
+				$inventory_id = $row["inventory_id"];
 			endwhile;
 			$list_sql = "INSERT INTO `order_list` (order_id,product_id,size,unit,quantity,price,total) VALUES {$data} ";
 			$save_olist = $this->conn->query($list_sql);
+			// update the inventory
+			$check_inventory_sql = $this->conn->query("SELECT quantity from inventory where id = {$inventory_id}");
+			if ($check_inventory_sql) {
+				$available_inventory = $check_inventory_sql->fetch_assoc()["quantity"];
+
+				if ($available_inventory < $quantity) {
+					$resp['status'] = 'failed';
+					$resp['err'] = "The quantity provided exceeds the current available stock";
+					return json_encode($resp);
+				}
+
+				$available_inventory -= $quantity;
+
+				$sql = "UPDATE inventory set quantity = {$available_inventory} where product_id = {$prod_id} and size = '{$size}'";
+				$result = $this->conn->query($sql);
+			}
+			
 			if($this->capture_err())
 				return $this->capture_err();
 			if($save_olist){
@@ -461,6 +485,8 @@ Class Master extends DBConnection {
 		}
 		return json_encode($resp);
 	}
+
+
 	function update_order_status(){
 		extract($_POST);
 		$update = $this->conn->query("UPDATE `orders` set `status` = '$status' where id = '{$id}' ");
