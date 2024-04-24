@@ -1,5 +1,4 @@
-<!-- <script src="https://www.paypalobjects.com/api/checkout.js"></script> -->
-<script src="https://checkout.flutterwave.com/v3.js"></script>
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <?php 
 $total = 0;
     $qry = $conn->query("SELECT c.*,p.product_name,i.size,i.price,p.id as pid from `cart` c inner join `inventory` i on i.id=c.inventory_id inner join products p on p.id = i.product_id where c.client_id = ".$_settings->userdata('id'));
@@ -32,10 +31,7 @@ $total = 0;
                             <div class="d-flex w-100 justify-content-between">
                                 <button class="btn btn-flat btn-dark">Cash on Delivery</button>
                                 <span id="paypal-button"></span>
-                            </div><br>
-                            <form>
-                              <button style="background-color: grey;color:white;" type="button" id="start-payment-button" onclick="makePayment()">Flutterwave</button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -43,7 +39,7 @@ $total = 0;
         </div>
     </div>
 </section>
-<!-- <script>
+<script>
 paypal.Button.render({
     env: 'sandbox', // change for production if app is live,
  
@@ -120,35 +116,4 @@ $(function(){
         })
     })
 })
-</script> -->
-<script>
-  function makePayment() {
-    FlutterwaveCheckout({
-      public_key: "FLWPUBK_TEST-02b9b5fc6406bd4a41c3ff141cc45e93-X",
-      tx_ref: "txref-DI0NzMx13",
-      amount: 2500,
-      currency: "RWF",
-      payment_options: "card, banktransfer, ussd",
-      meta: {
-        source: "docs-inline-test",
-        consumer_mac: "92a3-912ba-1192a",
-      },
-      customer: {
-        email: "test@mailinator.com",
-        phone_number: "08100000000",
-        name: "PAZZO",
-      },
-      customizations: {
-        title: "Flutterwave Developers",
-        description: "Test Payment",
-        logo: "https://checkout.flutterwave.com/assets/img/rave-logo.png",
-      },
-      callback: function (data){
-        console.log("payment callback:", data);
-      },
-      onclose: function() {
-        console.log("Payment cancelled!");
-      }
-    });
-  }
 </script>

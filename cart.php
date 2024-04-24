@@ -110,7 +110,6 @@
                     end_loader()
                 }
             }
-
         })
     }
     function rem_item(id){
