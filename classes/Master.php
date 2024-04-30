@@ -563,7 +563,7 @@ Class Master extends DBConnection {
 	function book_appointment() {
 		extract($_POST);
 		
-		$sql = "INSERT INTO appointment_bookings VALUES ('', '$ownerName', '$phoneNumber', '$address', '$petName', '$appointmentDate', '$additionalServices')";
+		$sql = "INSERT INTO appointment_bookings VALUES ('', '$ownerName', '$phoneNumber', '$address', '$petName', '$appointmentDate', '$additionalServices', '$email_addr')";
 		$save = $this->conn->query($sql);
 		$resp;
 		if ($save) {

@@ -6,8 +6,12 @@
         <th>#</th>
         <th>Pet Name</th>
         <th>Owner's Name</th>
+        <th>Address</th>
+        <th>Phone number</th>
+        <th>Email</th>
         <th>Appointment Date</th>
         <th>Service</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -20,11 +24,23 @@
         <td><?= $i++ ?></td>
         <td><?= $row['pet_name'] ?></td>
         <td><?= $row['owner_name'] ?></td>
+        <td><?= $row['address'] ?></td>
+        <td><?= $row['phone_number'] ?></td>
+        <td><?= $row['email_address'] ?></td>
         <td><?= $row['appointment_date'] ?></td>
         <td><?= $row['services'] ?></td>
+        <td>
+          <form action="" method="post">
+            <select class="form-control" name="" id="">
+              <option value="">--</option>
+              <option value="">Approve</option>
+              <option value="">Reject</option>
+              <option value="">Delete</option>
+            </select>
+          </form>
+        </td>
       </tr>
       <?php endwhile ?>
-      <!-- Add more rows as needed -->
     </tbody>
   </table>
 </div>

@@ -10,6 +10,10 @@
       <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required>
     </div>
     <div class="form-group">
+      <label for="email_addr">Owner's Email address</label>
+      <input type="text" class="form-control" id="email_addr" name="email_addr" required>
+    </div>
+    <div class="form-group">
       <label for="address">Address</label>
       <input type="text" class="form-control" id="address" name="address" required>
     </div>
