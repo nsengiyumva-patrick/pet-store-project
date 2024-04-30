@@ -558,6 +558,24 @@ Class Master extends DBConnection {
 		return json_encode($resp);
 
 	}
+
+	// Appointment booking
+	function book_appointment() {
+		extract($_POST);
+		
+		$sql = "INSERT INTO appointment_bookings VALUES ('', '$ownerName', '$phoneNumber', '$address', '$petName', '$appointmentDate', '$additionalServices')";
+		$save = $this->conn->query($sql);
+		$resp;
+		if ($save) {
+			$resp["status"] = "success";
+			$resp["msg"] = "The appointment is booked successfully";
+		} else {
+			$resp["status"] = "fail";
+			$resp["msg"] = "failed to book the appointment <br>" . $this->conn->error;
+		}
+
+		return json_encode($resp);
+	}
 }
 
 $Master = new Master();
@@ -621,6 +639,9 @@ switch ($action) {
 	break;
 	case 'delete_order':
 		echo $Master->delete_order();
+	break;
+	case 'book_appointment':
+		echo $Master->book_appointment();
 	break;
 	default:
 		// echo $sysset->index();

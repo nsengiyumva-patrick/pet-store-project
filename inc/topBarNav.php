@@ -39,7 +39,7 @@
                         <li class="nav-item"><a class="nav-link" href="./?p=about">About</a></li>
                         
                         <li class="nav-item"><a class="nav-link" href="./?p=contact">Contact </a></li>
-                        <li class="nav-item"><a class="nav-link" href="./?p=veterinary services">veterinary services </a></li>
+                        <li class="nav-item"><a class="nav-link" href="./?p=veterinary-services">veterinary services </a></li>
                         
               
                     </ul>

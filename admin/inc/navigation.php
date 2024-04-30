@@ -47,6 +47,14 @@
                         </p>
                       </a>
                     </li>
+                    <li class="nav-item">
+                      <a href="<?php echo base_url ?>admin/?page=veterinary-appointments" class="nav-link veterinary-appointments">
+                        <i class="nav-icon fas fa-clipboard-list"></i>
+                        <p>
+                          Veterinary appointments
+                        </p>
+                      </a>
+                    </li>
                     <li class="nav-item dropdown">
                       <a href="<?php echo base_url ?>admin/?page=orders" class="nav-link nav-orders">
                         <i class="nav-icon fas fa-list"></i>
