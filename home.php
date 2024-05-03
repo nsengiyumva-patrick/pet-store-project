@@ -36,24 +36,27 @@
                         $inv[$ir['size']] = number_format($ir['price']);
                     }
             ?>
-    <div class="col mb-5">
-       <div class="product-card">
-		<div class="badge">Hot</div>
-		<div class="product-tumb">
-			<img src="<?php echo validate_image($img) ?>" alt="">
-		</div>
-		<div class="product-details">
-			<h4><a href=".?p=view_product&id=<?php echo md5($row['id']) ?>"><?php echo $row['product_name'] ?></a></h4>
-            <?php foreach($inv as $k=> $v): ?>
-			<div class="product-bottom-details">
-				<div class="product-price"><?php echo $k ?>: </b><?php echo $v ?></div>
-                <?php endforeach; ?>
-				<div class="product-links">
-					<a href=""><i class="fa fa-heart"></i></a>
-					<a href=".?p=view_product&id=<?php echo md5($row['id']) ?>"><i class="fa fa-shopping-cart"></i></a>
-				</div>
-			</div>
-		</div>
-	</div>
+            <div class="col col-sm-6 col-lg-4 mb-5">
+                <div class="product-card">
+                    <div class="badge">Hot</div>
+                    <div class="product-tumb">
+                        <img src="<?php echo validate_image($img) ?>" alt="">
+                    </div>
+                    <div class="product-details">
+                        <h4><a href=".?p=view_product&id=<?php echo md5($row['id']) ?>"><?php echo $row['product_name'] ?></a></h4>
+                        <?php foreach($inv as $k=> $v): ?>
+                        <div class="product-bottom-details">
+                            <div class="product-price"><?php echo $k ?>: </b><?php echo $v ?></div>
+                            <?php endforeach; ?>
+                            <div class="product-links">
+                                <a href=""><i class="fa fa-heart"></i></a>
+                                <a href=".?p=view_product&id=<?php echo md5($row['id']) ?>"><i class="fa fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     <?php endwhile; ?>
+                        </div>
+                        </div>
 </section>

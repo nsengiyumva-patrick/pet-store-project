@@ -576,6 +576,12 @@ Class Master extends DBConnection {
 
 		return json_encode($resp);
 	}
+
+	// change the status of an appointment
+	function change_appointment_status() {
+		extract($_POST);
+		echo "Change the appointment status, ID=" . $id;
+	}
 }
 
 $Master = new Master();
@@ -641,6 +647,9 @@ switch ($action) {
 		echo $Master->delete_order();
 	break;
 	case 'book_appointment':
+		echo $Master->book_appointment();
+	break;
+	case 'change_appointment_status':
 		echo $Master->book_appointment();
 	break;
 	default:

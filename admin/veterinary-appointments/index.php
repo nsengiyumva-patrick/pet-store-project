@@ -16,7 +16,7 @@
     </thead>
     <tbody>
       <?php 
-      $query = $conn->query("SELECT * FROM appointment_bookings order by id desc"); 
+      $query = $conn->query("SELECT * FROM appointment_bookings order by id desc");
       $i = 1;
        while ($row = $query->fetch_assoc()):
       ?>
@@ -30,12 +30,13 @@
         <td><?= $row['appointment_date'] ?></td>
         <td><?= $row['services'] ?></td>
         <td>
-          <form action="" method="post">
-            <select class="form-control" name="" id="">
-              <option value="">--</option>
-              <option value="">Approve</option>
-              <option value="">Reject</option>
-              <option value="">Delete</option>
+          <form action="" method="post" class="action_frm" id="form_<?= $row['id'] ?>" data-formid="<?= $row['id'] ?>">
+            <input type="hidden" name="id" value="<?= $row['id'] ?>">
+            <select class="form-control" name="action">
+              <option value="" disabled selected>--</option>
+              <option value="approve">Approve</option>
+              <option value="reject">Reject</option>
+              <option value="delete">Delete</option>
             </select>
           </form>
         </td>
@@ -44,3 +45,59 @@
     </tbody>
   </table>
 </div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade text-light" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Confirm Action</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to perform this action?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" id="confirmBtn">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript to handle the form submission with confirmation -->
+<script>
+// Function to handle the selection of an action and launching the modal
+function handleActionSelection(form) {
+  var selectedAction = `classes/Master.php?f=change_appointment_status}`;
+  if (selectedAction) {
+    // Set the form action based on the selected option
+    form.action = selectedAction;
+
+    // Update the modal's ID with the form's unique identifier
+    $('#confirmationModal').attr('data-formid', form.id);
+
+    // Show the modal
+    $('#confirmationModal').modal('show');
+  }
+}
+
+// Event listener for the confirmation button in the modal
+document.getElementById('confirmBtn').addEventListener('click', function() {
+  let formId = $('#confirmationModal').data('formid');
+  // let form = document.querySelector(`${formId}`);
+  console.log(formId);
+  if (form) {
+    form.submit();
+  }
+});
+
+// Event listener for all forms with the class 'action_frm'
+document.querySelectorAll('.action_frm').forEach(function(form) {
+  form.querySelector('select').addEventListener('change', function() {
+    handleActionSelection(form);
+  });
+});
+</script>
