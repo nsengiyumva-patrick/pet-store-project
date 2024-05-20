@@ -38,9 +38,8 @@
                 ?>
                  <div class="col mb-5">
                      <div class="product-card">
-                         <div class="badge">Hot</div>
                          <div class="product-tumb">
-                             <img src="<?php echo validate_image($img) ?>" class="w-100" alt="">
+                             <a href=".?p=view_product&id=<?php echo md5($row['id']) ?>"><img src="<?php echo validate_image($img) ?>" class="w-100" alt=""></a>
                          </div>
                          <div class="product-details">
                              <h4><a href=".?p=view_product&id=<?php echo md5($row['id']) ?>"><?php echo $row['product_name'] ?></a></h4>
@@ -50,7 +49,7 @@
                                  </div>
                              <?php endforeach; ?>
                              <div class="product-links">
-                                 <a href=""><i class="fa fa-heart"></i></a>
+                                 <!-- <a href=""><i class="fa fa-heart"></i></a> -->
                                  <a href=".?p=view_product&id=<?php echo md5($row['id']) ?>"><i class="fa fa-shopping-cart"></i></a>
                              </div>
                          </div>

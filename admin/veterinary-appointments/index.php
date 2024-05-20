@@ -15,32 +15,32 @@
       </tr>
     </thead>
     <tbody>
-      <?php 
+      <?php
       $query = $conn->query("SELECT * FROM appointment_bookings order by id desc");
       $i = 1;
-       while ($row = $query->fetch_assoc()):
+      while ($row = $query->fetch_assoc()) :
       ?>
-      <tr>
-        <td><?= $i++ ?></td>
-        <td><?= $row['pet_name'] ?></td>
-        <td><?= $row['owner_name'] ?></td>
-        <td><?= $row['address'] ?></td>
-        <td><?= $row['phone_number'] ?></td>
-        <td><?= $row['email_address'] ?></td>
-        <td><?= $row['appointment_date'] ?></td>
-        <td><?= $row['services'] ?></td>
-        <td>
-          <form action="" method="post" class="action_frm" id="form_<?= $row['id'] ?>" data-formid="<?= $row['id'] ?>">
-            <input type="hidden" name="id" value="<?= $row['id'] ?>">
-            <select class="form-control" name="action">
-              <option value="" disabled selected>--</option>
-              <option value="approve">Approve</option>
-              <option value="reject">Reject</option>
-              <option value="delete">Delete</option>
-            </select>
-          </form>
-        </td>
-      </tr>
+        <tr>
+          <td><?= $i++ ?></td>
+          <td><?= $row['pet_name'] ?></td>
+          <td><?= $row['owner_name'] ?></td>
+          <td><?= $row['address'] ?></td>
+          <td><?= $row['phone_number'] ?></td>
+          <td><?= $row['email_address'] ?></td>
+          <td><?= $row['appointment_date'] ?></td>
+          <td><?= $row['services'] ?></td>
+          <td>
+            <form method="post" class="action_frm" id="form_<?= $row['id'] ?>" data-formid="<?= $row['id'] ?>">
+              <input type="hidden" name="appointment_id" value="<?= $row['id'] ?>">
+              <select class="form-control" name="action">
+                <option value="" disabled selected>--</option>
+                <option value="approve">Approve</option>
+                <option value="reject">Reject</option>
+                <option value="delete">Delete</option>
+              </select>
+            </form>
+          </td>
+        </tr>
       <?php endwhile ?>
     </tbody>
   </table>
@@ -69,35 +69,33 @@
 
 <!-- JavaScript to handle the form submission with confirmation -->
 <script>
-// Function to handle the selection of an action and launching the modal
-function handleActionSelection(form) {
-  var selectedAction = `classes/Master.php?f=change_appointment_status}`;
-  if (selectedAction) {
-    // Set the form action based on the selected option
-    form.action = selectedAction;
+  // Function to handle the selection of an action and launching the modal
+  function handleActionSelection(form) {
+    var selectedAction = `http://localhost/pet_shop/classes/Master.php?f=change_appointment_status`;
+    if (selectedAction) {
+      // Set the form action based on the selected option
+      form.action = selectedAction;
 
-    // Update the modal's ID with the form's unique identifier
-    $('#confirmationModal').attr('data-formid', form.id);
+      console.log(form);
 
-    // Show the modal
-    $('#confirmationModal').modal('show');
+      // Update the modal's ID with the form's unique identifier
+      $('#confirmationModal').attr('data-formid', form.getAttribute('data-formid'));
+
+      // Show the modal
+      $('#confirmationModal').modal('show');
+    }
   }
-}
 
-// Event listener for the confirmation button in the modal
-document.getElementById('confirmBtn').addEventListener('click', function() {
-  let formId = $('#confirmationModal').data('formid');
-  // let form = document.querySelector(`${formId}`);
-  console.log(formId);
-  if (form) {
-    form.submit();
-  }
-});
-
-// Event listener for all forms with the class 'action_frm'
-document.querySelectorAll('.action_frm').forEach(function(form) {
-  form.querySelector('select').addEventListener('change', function() {
-    handleActionSelection(form);
+  // Event listener for the confirmation button in the modal
+  document.getElementById('confirmBtn').addEventListener('click', function() {
+    let formId = $('#confirmationModal').attr('data-formid');
+    document.querySelector(`#form_${formId}`).submit();
   });
-});
+
+  // Event listener for all forms with the class 'action_frm'
+  document.querySelectorAll('.action_frm').forEach(function(form) {
+    form.querySelector('select').addEventListener('change', function() {
+      handleActionSelection(form);
+    });
+  });
 </script>

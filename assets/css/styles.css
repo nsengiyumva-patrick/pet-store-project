@@ -13,6 +13,7 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
  @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
 *
 {
@@ -2934,7 +2935,7 @@ textarea.form-control.is-invalid {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    background-color: transparent;
+    background-color: #d63384;
     border: 1px solid transparent;
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
@@ -3281,7 +3282,7 @@ fieldset:disabled .btn {
 }
 
 .btn-dark {
-    color: #fff;
+    color: #952c2c !important;
     background-color: #212529;
     border-color: #212529;
 }
@@ -3606,14 +3607,14 @@ fieldset:disabled .btn {
 }
 
 .btn-outline-dark {
-    color: #212529;
-    border-color: #212529;
+    color: #E9DDDD;
+    font-weight: 70;
 }
 
 .btn-outline-dark:hover {
     color: #fff;
-    background-color: #212529;
-    border-color: #212529;
+    background-color:#da4673;
+    border-color: #858687;
 }
 
 .btn-check:focus+.btn-outline-dark,
@@ -3672,6 +3673,7 @@ fieldset:disabled .btn {
     padding: 0.25rem 0.5rem;
     font-size: 0.875rem;
     border-radius: 0.2rem;
+    background-color: rgb(242, 235, 235);
 }
 
 .fade {
@@ -4561,7 +4563,8 @@ fieldset:disabled .btn {
 }
 
 .navbar-light .navbar-nav .nav-link {
-    color: rgba(0, 0, 0, 0.55);
+    color:   #e9dddd;
+    font-family: 700;
 }
 
 .navbar-light .navbar-nav .nav-link:hover,
@@ -8036,7 +8039,7 @@ fieldset:disabled .btn {
 }
 
 .bg-dark {
-    background-color: #212529 !important;
+    background-color: #393D72 !important;
 }
 
 .bg-body {
@@ -10801,10 +10804,11 @@ input.cart-qty[type=number] {
     font-weight: 500;
     display: block;
     margin-bottom: 18px;
-    text-transform: uppercase;
-    color: #363636;
+    /* text-transform: uppercase; */
+    color: #393d72;
     text-decoration: none;
     transition: 0.3s;
+    font-family: "Fredoka One";
 }
 
 .product-details h4 a:hover {
@@ -10890,3 +10894,25 @@ input.cart-qty[type=number] {
     margin-right: 15px;
 }
 
+/* Scroll bar customization */
+
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: white; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #393d72;
+    border-radius: 6px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
