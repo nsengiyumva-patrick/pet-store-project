@@ -1,5 +1,22 @@
 <div class="container mt-5 text-light">
   <h2 class="mb-4">Appointment Management</h2>
+  <a href="<?= base_url ?>admin/?page=veterinary-appointments" class="btn btn-light">Pending</a>
+  <a href="<?= base_url ?>admin/?page=veterinary-appointments&filter=approved" class="btn btn-light">Approved</a>
+  <a href="<?= base_url ?>admin/?page=veterinary-appointments&filter=rejected" class="btn btn-light">Rejected</a>
+  <?php   
+  if (isset($_GET['filter'])) {
+    if ($_GET['filter'] == 'approved')
+      $sql = "SELECT * FROM appointment_bookings where status='approve' order by id desc";
+    else if ($_GET['filter'] == 'rejected')
+      $sql = "SELECT * FROM appointment_bookings where status='reject' order by id desc";
+  }
+  else
+    $sql = "SELECT * FROM appointment_bookings where status='pending' order by id desc";
+  
+  $query = $conn->query($sql);
+  $i = 1;
+  ?>
+  <hr class="mb-4">
   <table class="table table-striped">
     <thead>
       <tr>
@@ -16,8 +33,6 @@
     </thead>
     <tbody>
       <?php
-      $query = $conn->query("SELECT * FROM appointment_bookings order by id desc");
-      $i = 1;
       while ($row = $query->fetch_assoc()) :
       ?>
         <tr>

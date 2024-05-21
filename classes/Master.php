@@ -589,7 +589,7 @@ class Master extends DBConnection
 	{
 		extract($_POST);
 
-		$sql = "INSERT INTO appointment_bookings VALUES ('', '$ownerName', '$phoneNumber', '$address', '$petName', '$appointmentDate', '$additionalServices', '$email_addr', '')";
+		$sql = "INSERT INTO appointment_bookings VALUES ('', '$ownerName', '$phoneNumber', '$address', '$petName', '$appointmentDate', '$additionalServices', '$email_addr', 'pending')";
 		$save = $this->conn->query($sql);
 		$resp;
 		if ($save) {
@@ -611,15 +611,15 @@ class Master extends DBConnection
 			//Server settings
 			$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
 			$mail->isSMTP();                                            //Send using SMTP
-			$mail->Host       = 'smtp-mail.outlook.com';                     //Set the SMTP server to send through
+			$mail->Host       = 'smtp.office365.com';                   //Set the SMTP server to send through
 			$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-			$mail->Username   = 'smtpmail@techdiary.site';                     //SMTP username
-			$mail->Password   = 'TGn6IiKzZyk7tPu';                               //SMTP password
-			$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+			$mail->Username   = 'smtpmail@techdiary.site';              //SMTP username
+			$mail->Password   = 'TGn6IiKzZyk7tPu';                      //SMTP password
+			$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable implicit TLS encryption
 			$mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
 			//Recipients
-			$mail->setFrom('noreply@techdiary.site', 'Pet Store System');
+			$mail->setFrom('smtpmail@techdiary.site', 'Pet Store System');
 			$mail->addAddress($toAddress, $toName);     //Add a recipient
 
 			//Content
@@ -649,16 +649,17 @@ class Master extends DBConnection
 		} else {
 			$sql = "UPDATE appointment_bookings set status = '{$action}' where id = {$appointment_id}";
 			
-			if ($this->conn->query($sql)) {
+			if ($this->conn->query($sql)) {				
 				$subject = "Update on your appointment";
-				if ($action == "approve")
-					$message = "Dear Applicant,<p>Please be informed that your appointment has been approved and will occur at your desired date and time</p><p>Regards,</p><p>Pet store team</p>";
-				else
-					$message = "Dear Applicant,<p>we regret to inform you that your appointment has been rejected, kindly consider booking a different date</p><p>Regards,</p><p>Pet store team</p>";
 				$appointment_data = $this->conn->query("SELECT * from appointment_bookings where id = {$appointment_id}")->fetch_assoc();
 				
 				if ($appointment_data['email_address'] != "") {
 
+					if ($action == "approve")
+						$message = "Dear $appointment_data[owner_name],<p>Please be informed that your appointment has been approved and will occur at your desired date and time</p><p>Regards,</p><p>Pet store team</p>";
+					else
+						$message = "Dear $appointment_data[owner_name],<p>we regret to inform you that your appointment has been rejected, kindly consider booking a different date</p><p>Regards,</p><p>Pet store team</p>";
+					
 					$sendmail = $this->send_email(
 						$appointment_data['email_address'], 
 						$appointment_data['owner_name'], 
@@ -667,8 +668,7 @@ class Master extends DBConnection
 					if (!$sendmail['result']) {
 						echo $sendmail['msg'];
 					}
-				}
-				
+				}				
 
 				 echo "<script>window.location = \"" . base_url . "admin/?page=veterinary-appointments\";</script>";
 			}
