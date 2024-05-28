@@ -1,4 +1,5 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -507,6 +508,16 @@ class Master extends DBConnection
 			$resp['status'] = 'failed';
 			$resp['err_sql'] = $save_order;
 		}
+
+		$sql_find_data = $this->conn->query("SELECT * from clients where id={$client_id}");
+		if ($sql_find_data) {
+			$user_data = $sql_find_data->fetch_assoc();
+			$user_email_address = $user_data['email'];
+			$user_name = $user_data['firstname'];
+			$subject = "Your order has been placed";
+			$message = "Dear $user_name,<p>Congratulations, your order has been placed successfully, please expect your order to be delivered soon.</p><p>Regards,</p><p>The Pet Store team</p>";
+			$this->send_email($user_email_address, $user_name, $subject, $message);
+		}
 		return json_encode($resp);
 	}
 
@@ -603,13 +614,14 @@ class Master extends DBConnection
 		return json_encode($resp);
 	}
 
-	function send_email($toAddress, $toName = '', $subject, $message) : array {
+	function send_email($toAddress, $toName = '', $subject, $message): array
+	{
 		//Create an instance; passing `true` enables exceptions
 		$mail = new PHPMailer(true);
 
 		try {
 			//Server settings
-			$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+			// $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
 			$mail->isSMTP();                                            //Send using SMTP
 			$mail->Host       = 'smtp.office365.com';                   //Set the SMTP server to send through
 			$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
@@ -648,29 +660,30 @@ class Master extends DBConnection
 			}
 		} else {
 			$sql = "UPDATE appointment_bookings set status = '{$action}' where id = {$appointment_id}";
-			
-			if ($this->conn->query($sql)) {				
+
+			if ($this->conn->query($sql)) {
 				$subject = "Update on your appointment";
 				$appointment_data = $this->conn->query("SELECT * from appointment_bookings where id = {$appointment_id}")->fetch_assoc();
-				
+
 				if ($appointment_data['email_address'] != "") {
 
 					if ($action == "approve")
 						$message = "Dear $appointment_data[owner_name],<p>Please be informed that your appointment has been approved and will occur at your desired date and time</p><p>Regards,</p><p>Pet store team</p>";
 					else
 						$message = "Dear $appointment_data[owner_name],<p>we regret to inform you that your appointment has been rejected, kindly consider booking a different date</p><p>Regards,</p><p>Pet store team</p>";
-					
+
 					$sendmail = $this->send_email(
-						$appointment_data['email_address'], 
-						$appointment_data['owner_name'], 
-						$subject, $message
+						$appointment_data['email_address'],
+						$appointment_data['owner_name'],
+						$subject,
+						$message
 					);
 					if (!$sendmail['result']) {
 						echo $sendmail['msg'];
 					}
-				}				
+				}
 
-				 echo "<script>window.location = \"" . base_url . "admin/?page=veterinary-appointments\";</script>";
+				echo "<script>window.location = \"" . base_url . "admin/?page=veterinary-appointments\";</script>";
 			}
 		}
 	}
