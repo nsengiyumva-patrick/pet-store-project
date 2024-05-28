@@ -64,7 +64,7 @@ paypal.Button.render({
                     	//total purchase
                         amount: { 
                         	total: '<?php echo $total; ?>', 
-                        	currency: 'PHP' 
+                        	currency: 'USD' 
                         }
                     }
                 ]

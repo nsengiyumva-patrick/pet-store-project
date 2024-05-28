@@ -63,17 +63,17 @@
   <div class="footer-pg">
     <div class="about">
       <h2>About us</h2>
-      <p> Welcome to the Pet Shop Platform, where we're passionate about pets and their well-being!<br>At Pet Shop platform, we understand that pets are more than just animals; they're cherished<br> members of our families That's why we're dedicated to providing a convenient and reliable <br> platform for owners to order high-quality food and essential veterinary services for their furry friends.</p>
+      <p> Welcome to the Pet Store System, where we're passionate about pets and their well-being!<br>At Pet Shop platform, we understand that pets are more than just animals; they're cherished<br> members of our families That's why we're dedicated to providing a convenient and reliable <br> platform for owners to order high-quality food and essential veterinary services for their furry friends.</p>
     </div>
     <div class="contact">
-      <h2>Contact info</h2>
-      <p> + 25078746363</p>
-      <p> info@gmail.com</p>
+      <h2> Contact info</h2>
+      <p><a href="<?= base_url . '?p=contact' ?>" class="text-white text-decoration-none"><i class="fa fa-phone-square" aria-hidden="true"></i> +250 786 777 347</a> </p>
+      <p> <i class="fa fa-envelope" aria-hidden="true"></i> info@gmail.com</p>
       <p>Kigali, Rwanda</p>
     </div>
     <div class="links">
       <h2>Useful Links</h2>
-      <p>Home</p>
+      <p><a href="<?= base_url ?>" class="text-white text-decoration-none"><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp; Home</a></p>
       <p>Terms of Service</p>
       <p>Privacy Policy</p>
       <p>Cookie Policy</p>
